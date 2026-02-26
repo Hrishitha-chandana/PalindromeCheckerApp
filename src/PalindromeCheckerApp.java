@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 public class PalindromeCheckerApp {
 
@@ -39,7 +40,7 @@ public class PalindromeCheckerApp {
         // ==========================
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("\nEnter a word for UC3 check: ");
+        System.out.print("\nEnter word for UC3 check: ");
         String input = sc.nextLine();
 
         String reversed = "";
@@ -56,9 +57,9 @@ public class PalindromeCheckerApp {
 
 
         // ==========================
-        // UC4: Character Array + Two Pointer
+        // UC4: Character Array Method
         // ==========================
-        System.out.print("\nEnter a word for UC4 check: ");
+        System.out.print("\nEnter word for UC4 check: ");
         String word = sc.nextLine();
 
         char[] arr = word.toCharArray();
@@ -80,6 +81,33 @@ public class PalindromeCheckerApp {
             System.out.println("UC4 Result: " + word + " is a palindrome.");
         } else {
             System.out.println("UC4 Result: " + word + " is not a palindrome.");
+        }
+
+
+        // ==========================
+        // UC5: Stack-Based Method
+        // ==========================
+        System.out.print("\nEnter word for UC5 check: ");
+        String stackInput = sc.nextLine();
+
+        Stack<Character> stack = new Stack<>();
+
+        // Push characters
+        for (char c : stackInput.toCharArray()) {
+            stack.push(c);
+        }
+
+        String reversedStack = "";
+
+        // Pop characters
+        while (!stack.isEmpty()) {
+            reversedStack += stack.pop();
+        }
+
+        if (stackInput.equals(reversedStack)) {
+            System.out.println("UC5 Result: " + stackInput + " is a palindrome.");
+        } else {
+            System.out.println("UC5 Result: " + stackInput + " is not a palindrome.");
         }
 
         sc.close();
