@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
@@ -5,38 +7,54 @@ public class PalindromeCheckerApp {
         // ==========================
         // UC1: Application Startup
         // ==========================
-
-        // Welcome message
         System.out.println("Welcome to Palindrome Checker App!");
         System.out.println("-----------------------------------");
 
-        // Application details
         System.out.println("Application Name : Palindrome Checker");
         System.out.println("Version          : 1.0");
 
-        // Startup confirmation
         System.out.println("\nApplication started successfully.");
         System.out.println("Moving to next module...\n");
 
 
         // ==========================
-        // UC2: Hardcoded Palindrome Check
+        // UC2: Hardcoded Palindrome
         // ==========================
+        String hardcoded = "madam";
+        String reversedHardcoded = "";
 
-        String word = "madam";   // Hardcoded string
-        String reversed = "";
-
-        // Reverse the string
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversed = reversed + word.charAt(i);
+        for (int i = hardcoded.length() - 1; i >= 0; i--) {
+            reversedHardcoded = reversedHardcoded + hardcoded.charAt(i);
         }
 
-        // Check if palindrome
-        if (word.equals(reversed)) {
-            System.out.println(word + " is a palindrome.");
+        if (hardcoded.equals(reversedHardcoded)) {
+            System.out.println("UC2 Result: " + hardcoded + " is a palindrome.");
         } else {
-            System.out.println(word + " is not a palindrome.");
+            System.out.println("UC2 Result: " + hardcoded + " is not a palindrome.");
         }
+
+
+        // ==========================
+        // UC3: User Input Palindrome
+        // ==========================
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("\nEnter a word to check palindrome: ");
+        String input = sc.nextLine();
+
+        String reversedInput = "";
+
+        for (int i = input.length() - 1; i >= 0; i--) {
+            reversedInput = reversedInput + input.charAt(i);
+        }
+
+        if (input.equals(reversedInput)) {
+            System.out.println("UC3 Result: " + input + " is a palindrome.");
+        } else {
+            System.out.println("UC3 Result: " + input + " is not a palindrome.");
+        }
+
+        sc.close();
 
         System.out.println("\nProgram execution completed.");
     }
