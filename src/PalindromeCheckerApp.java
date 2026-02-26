@@ -112,6 +112,34 @@ public class PalindromeCheckerApp {
 
         sc.close();
 
+        System.out.println("\nUC7: Deque-Based Optimized Palindrome Checker");
+        System.out.println("------------------------------------------------");
+
+        String dequeInput = "refer";
+
+// Create Deque
+        java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
+
+// Insert characters into deque
+        for (char c : dequeInput.toCharArray()) {
+            deque.addLast(c);
+        }
+
+// Assume palindrome initially
+        boolean isDequePalindrome = true;
+
+// Compare front and rear elements
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
+                isDequePalindrome = false;
+                break;
+            }
+        }
+
+// Display result
+        System.out.println("Input : " + dequeInput);
+        System.out.println("Is Palindrome? : " + isDequePalindrome);
+
         System.out.println("\nProgram execution completed.");
     }
 }
