@@ -290,6 +290,59 @@ public class PalindromeCheckerApp {
 
         System.out.println("UC12 Result: " +
                 (strategyResult ? "Palindrome" : "Not Palindrome"));
+        // ==========================
+// UC13: Performance Comparison
+// ==========================
+        System.out.println("\nUC13: Performance Comparison");
+        System.out.println("--------------------------------");
+
+        sc.nextLine(); // clear buffer
+
+        System.out.print("Enter text for performance test: ");
+        String perfInput = sc.nextLine();
+
+// Reverse Method
+        long start1 = System.nanoTime();
+        String reversed = "";
+        for (int i = perfInput.length() - 1; i >= 0; i--) {
+            reversed += perfInput.charAt(i);
+        }
+        boolean result1 = perfInput.equals(reversed);
+        long end1 = System.nanoTime();
+
+// Stack Method
+        long start2 = System.nanoTime();
+        Stack<Character> stack = new Stack<>();
+        for (char c : perfInput.toCharArray()) {
+            stack.push(c);
+        }
+        String reversedStack = "";
+        while (!stack.isEmpty()) {
+            reversedStack += stack.pop();
+        }
+        boolean result2 = perfInput.equals(reversedStack);
+        long end2 = System.nanoTime();
+
+// Deque Method
+        long start3 = System.nanoTime();
+        Deque<Character> deque = new ArrayDeque<>();
+        for (char c : perfInput.toCharArray()) {
+            deque.addLast(c);
+        }
+        boolean result3 = true;
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
+                result3 = false;
+                break;
+            }
+        }
+        long end3 = System.nanoTime();
+
+// Display Results
+        System.out.println("\nPerformance Results:");
+        System.out.println("Reverse Method: " + result1 + " | Time: " + (end1 - start1) + " ns");
+        System.out.println("Stack Method: " + result2 + " | Time: " + (end2 - start2) + " ns");
+        System.out.println("Deque Method: " + result3 + " | Time: " + (end3 - start3) + " ns");
 
         sc.close();
 
