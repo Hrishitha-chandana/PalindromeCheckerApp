@@ -3,6 +3,25 @@ import java.util.Stack;
 
 public class PalindromeCheckerApp {
 
+    // ==========================
+    // UC9: Recursive Method
+    // ==========================
+    public static boolean isPalindromeRecursive(String str, int start, int end) {
+
+        // Base condition
+        if (start >= end) {
+            return true;
+        }
+
+        // If characters do not match
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
+        }
+
+        // Recursive call
+        return isPalindromeRecursive(str, start + 1, end - 1);
+    }
+
     public static void main(String[] args) {
 
         // ==========================
@@ -35,11 +54,12 @@ public class PalindromeCheckerApp {
         }
 
 
+        Scanner sc = new Scanner(System.in);
+
+
         // ==========================
         // UC3: Reverse String Method
         // ==========================
-        Scanner sc = new Scanner(System.in);
-
         System.out.print("\nEnter word for UC3 check: ");
         String input = sc.nextLine();
 
@@ -92,14 +112,12 @@ public class PalindromeCheckerApp {
 
         Stack<Character> stack = new Stack<>();
 
-        // Push characters
         for (char c : stackInput.toCharArray()) {
             stack.push(c);
         }
 
         String reversedStack = "";
 
-        // Pop characters
         while (!stack.isEmpty()) {
             reversedStack += stack.pop();
         }
@@ -110,25 +128,23 @@ public class PalindromeCheckerApp {
             System.out.println("UC5 Result: " + stackInput + " is not a palindrome.");
         }
 
-        sc.close();
 
+        // ==========================
+        // UC7: Deque Method
+        // ==========================
         System.out.println("\nUC7: Deque-Based Optimized Palindrome Checker");
         System.out.println("------------------------------------------------");
 
         String dequeInput = "refer";
 
-// Create Deque
         java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
 
-// Insert characters into deque
         for (char c : dequeInput.toCharArray()) {
             deque.addLast(c);
         }
 
-// Assume palindrome initially
         boolean isDequePalindrome = true;
 
-// Compare front and rear elements
         while (deque.size() > 1) {
             if (!deque.removeFirst().equals(deque.removeLast())) {
                 isDequePalindrome = false;
@@ -136,9 +152,13 @@ public class PalindromeCheckerApp {
             }
         }
 
-// Display result
         System.out.println("Input : " + dequeInput);
         System.out.println("Is Palindrome? : " + isDequePalindrome);
+
+
+        // ==========================
+        // UC8: LinkedList Method
+        // ==========================
         System.out.println("\nUC8: Linked List Based Palindrome Checker");
         System.out.println("------------------------------------------------");
 
@@ -146,14 +166,12 @@ public class PalindromeCheckerApp {
 
         java.util.LinkedList<Character> list = new java.util.LinkedList<>();
 
-// Convert string to LinkedList
         for (char c : llInput.toCharArray()) {
             list.add(c);
         }
 
         boolean isLLPalindrome = true;
 
-// Compare from both ends
         while (list.size() > 1) {
             if (!list.removeFirst().equals(list.removeLast())) {
                 isLLPalindrome = false;
@@ -163,7 +181,27 @@ public class PalindromeCheckerApp {
 
         System.out.println("Input : " + llInput);
         System.out.println("Is Palindrome? : " + isLLPalindrome);
+
+
+        // ==========================
+        // UC9: Recursive Method
+        // ==========================
+        System.out.println("\nUC9: Recursive Palindrome Checker");
+        System.out.println("----------------------------------");
+
+        System.out.print("Enter word for UC9 check: ");
+        String recInput = sc.nextLine();
+
+        boolean result = isPalindromeRecursive(recInput, 0, recInput.length() - 1);
+
+        if (result) {
+            System.out.println("UC9 Result: " + recInput + " is a palindrome.");
+        } else {
+            System.out.println("UC9 Result: " + recInput + " is not a palindrome.");
+        }
+
+        sc.close();
+
         System.out.println("\nProgram execution completed.");
     }
 }
-
