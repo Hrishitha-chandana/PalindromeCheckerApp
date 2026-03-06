@@ -1,5 +1,4 @@
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 // ==========================
 // UC11: OOP Service Class
@@ -25,6 +24,55 @@ class PalindromeChecker {
     }
 }
 
+// ==========================
+// UC12 Strategy Interface
+// ==========================
+interface PalindromeStrategy {
+    boolean check(String text);
+}
+
+// Stack Strategy
+class StackStrategy implements PalindromeStrategy {
+
+    public boolean check(String text) {
+
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : text.toCharArray()) {
+            stack.push(c);
+        }
+
+        String reversed = "";
+
+        while (!stack.isEmpty()) {
+            reversed += stack.pop();
+        }
+
+        return text.equals(reversed);
+    }
+}
+
+// Deque Strategy
+class DequeStrategy implements PalindromeStrategy {
+
+    public boolean check(String text) {
+
+        Deque<Character> deque = new ArrayDeque<>();
+
+        for (char c : text.toCharArray()) {
+            deque.addLast(c);
+        }
+
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
 public class PalindromeCheckerApp {
 
     // ==========================
@@ -32,59 +80,55 @@ public class PalindromeCheckerApp {
     // ==========================
     public static boolean isPalindromeRecursive(String str, int start, int end) {
 
-        if (start >= end) {
+        if (start >= end)
             return true;
-        }
 
-        if (str.charAt(start) != str.charAt(end)) {
+        if (str.charAt(start) != str.charAt(end))
             return false;
-        }
 
         return isPalindromeRecursive(str, start + 1, end - 1);
     }
 
     public static void main(String[] args) {
 
-        System.out.println("Welcome to Palindrome Checker App!");
-        System.out.println("-----------------------------------");
+        System.out.println("Welcome to Palindrome Checker App");
+        System.out.println("----------------------------------");
 
         System.out.println("Application Name : Palindrome Checker");
-        System.out.println("Version          : 1.0");
-
-        System.out.println("\nApplication started successfully.\n");
-
-        // UC2
-        String hardcoded = "madam";
-        String reversedHardcoded = "";
-
-        for (int i = hardcoded.length() - 1; i >= 0; i--) {
-            reversedHardcoded += hardcoded.charAt(i);
-        }
-
-        if (hardcoded.equals(reversedHardcoded))
-            System.out.println("UC2 Result: " + hardcoded + " is a palindrome.");
-        else
-            System.out.println("UC2 Result: " + hardcoded + " is not a palindrome.");
+        System.out.println("Version          : 1.0\n");
 
         Scanner sc = new Scanner(System.in);
 
-        // UC3
-        System.out.print("\nEnter word for UC3 check: ");
+        // ==========================
+        // UC2 Hardcoded
+        // ==========================
+        String hardcoded = "madam";
+        String reversedHardcoded = "";
+
+        for (int i = hardcoded.length() - 1; i >= 0; i--)
+            reversedHardcoded += hardcoded.charAt(i);
+
+        System.out.println("UC2 Result: " +
+                (hardcoded.equals(reversedHardcoded) ? "Palindrome" : "Not Palindrome"));
+
+        // ==========================
+        // UC3 Reverse String
+        // ==========================
+        System.out.print("\nEnter word for UC3: ");
         String input = sc.nextLine();
 
         String reversed = "";
 
-        for (int i = input.length() - 1; i >= 0; i--) {
+        for (int i = input.length() - 1; i >= 0; i--)
             reversed += input.charAt(i);
-        }
 
-        if (input.equals(reversed))
-            System.out.println("UC3 Result: " + input + " is a palindrome.");
-        else
-            System.out.println("UC3 Result: " + input + " is not a palindrome.");
+        System.out.println("UC3 Result: " +
+                (input.equals(reversed) ? "Palindrome" : "Not Palindrome"));
 
-        // UC4
-        System.out.print("\nEnter word for UC4 check: ");
+        // ==========================
+        // UC4 Character Array
+        // ==========================
+        System.out.print("\nEnter word for UC4: ");
         String word = sc.nextLine();
 
         char[] arr = word.toCharArray();
@@ -103,33 +147,36 @@ public class PalindromeCheckerApp {
             right--;
         }
 
-        System.out.println("UC4 Result: " + (isPalindrome ? "Palindrome" : "Not Palindrome"));
+        System.out.println("UC4 Result: " +
+                (isPalindrome ? "Palindrome" : "Not Palindrome"));
 
-        // UC5
-        System.out.print("\nEnter word for UC5 check: ");
+        // ==========================
+        // UC5 Stack
+        // ==========================
+        System.out.print("\nEnter word for UC5: ");
         String stackInput = sc.nextLine();
 
         Stack<Character> stack = new Stack<>();
 
-        for (char c : stackInput.toCharArray()) {
+        for (char c : stackInput.toCharArray())
             stack.push(c);
-        }
 
         String reversedStack = "";
 
-        while (!stack.isEmpty()) {
+        while (!stack.isEmpty())
             reversedStack += stack.pop();
-        }
 
         System.out.println("UC5 Result: " +
                 (stackInput.equals(reversedStack) ? "Palindrome" : "Not Palindrome"));
 
-        // UC7
-        System.out.println("\nUC7: Deque-Based Optimized Palindrome Checker");
+        // ==========================
+        // UC7 Deque
+        // ==========================
+        System.out.println("\nUC7 Deque Method");
 
         String dequeInput = "refer";
 
-        java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
+        Deque<Character> deque = new ArrayDeque<>();
 
         for (char c : dequeInput.toCharArray())
             deque.addLast(c);
@@ -143,15 +190,16 @@ public class PalindromeCheckerApp {
             }
         }
 
-        System.out.println("Input : " + dequeInput);
-        System.out.println("Is Palindrome? : " + isDequePalindrome);
+        System.out.println("Result: " + isDequePalindrome);
 
-        // UC8
-        System.out.println("\nUC8: Linked List Based Palindrome Checker");
+        // ==========================
+        // UC8 LinkedList
+        // ==========================
+        System.out.println("\nUC8 LinkedList Method");
 
         String llInput = "madam";
 
-        java.util.LinkedList<Character> list = new java.util.LinkedList<>();
+        LinkedList<Character> list = new LinkedList<>();
 
         for (char c : llInput.toCharArray())
             list.add(c);
@@ -165,24 +213,24 @@ public class PalindromeCheckerApp {
             }
         }
 
-        System.out.println("Input : " + llInput);
-        System.out.println("Is Palindrome? : " + isLLPalindrome);
+        System.out.println("Result: " + isLLPalindrome);
 
-        // UC9
-        System.out.println("\nUC9: Recursive Palindrome Checker");
-
-        System.out.print("Enter word for UC9 check: ");
+        // ==========================
+        // UC9 Recursion
+        // ==========================
+        System.out.print("\nEnter word for UC9: ");
         String recInput = sc.nextLine();
 
-        boolean result = isPalindromeRecursive(recInput, 0, recInput.length() - 1);
+        boolean recResult =
+                isPalindromeRecursive(recInput, 0, recInput.length() - 1);
 
         System.out.println("UC9 Result: " +
-                (result ? "Palindrome" : "Not Palindrome"));
+                (recResult ? "Palindrome" : "Not Palindrome"));
 
-        // UC10
-        System.out.println("\nUC10: Case-Insensitive & Space-Ignored Palindrome");
-
-        System.out.print("Enter sentence: ");
+        // ==========================
+        // UC10 Ignore Case & Space
+        // ==========================
+        System.out.print("\nEnter sentence for UC10: ");
         String sentence = sc.nextLine();
 
         String normalized = sentence.replaceAll("\\s+", "").toLowerCase();
@@ -190,11 +238,11 @@ public class PalindromeCheckerApp {
         int start = 0;
         int end = normalized.length() - 1;
 
-        boolean isSentencePalindrome = true;
+        boolean sentencePalindrome = true;
 
         while (start < end) {
             if (normalized.charAt(start) != normalized.charAt(end)) {
-                isSentencePalindrome = false;
+                sentencePalindrome = false;
                 break;
             }
             start++;
@@ -202,14 +250,12 @@ public class PalindromeCheckerApp {
         }
 
         System.out.println("UC10 Result: " +
-                (isSentencePalindrome ? "Palindrome" : "Not Palindrome"));
+                (sentencePalindrome ? "Palindrome" : "Not Palindrome"));
 
         // ==========================
-        // UC11: OOP Palindrome Service
+        // UC11 OOP Service
         // ==========================
-        System.out.println("\nUC11: Object-Oriented Palindrome Service");
-
-        System.out.print("Enter text: ");
+        System.out.print("\nEnter text for UC11: ");
         String oopInput = sc.nextLine();
 
         PalindromeChecker checker = new PalindromeChecker();
@@ -218,6 +264,32 @@ public class PalindromeCheckerApp {
 
         System.out.println("UC11 Result: " +
                 (oopResult ? "Palindrome" : "Not Palindrome"));
+
+        // ==========================
+        // UC12 Strategy Pattern
+        // ==========================
+        System.out.println("\nUC12 Strategy Pattern");
+
+        System.out.print("Enter word: ");
+        String strategyInput = sc.nextLine();
+
+        System.out.println("Choose Algorithm:");
+        System.out.println("1 Stack Strategy");
+        System.out.println("2 Deque Strategy");
+
+        int choice = sc.nextInt();
+
+        PalindromeStrategy strategy;
+
+        if (choice == 1)
+            strategy = new StackStrategy();
+        else
+            strategy = new DequeStrategy();
+
+        boolean strategyResult = strategy.check(strategyInput);
+
+        System.out.println("UC12 Result: " +
+                (strategyResult ? "Palindrome" : "Not Palindrome"));
 
         sc.close();
 
