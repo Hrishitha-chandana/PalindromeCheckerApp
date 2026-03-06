@@ -8,17 +8,14 @@ public class PalindromeCheckerApp {
     // ==========================
     public static boolean isPalindromeRecursive(String str, int start, int end) {
 
-        // Base condition
         if (start >= end) {
             return true;
         }
 
-        // If characters do not match
         if (str.charAt(start) != str.charAt(end)) {
             return false;
         }
 
-        // Recursive call
         return isPalindromeRecursive(str, start + 1, end - 1);
     }
 
@@ -53,9 +50,7 @@ public class PalindromeCheckerApp {
             System.out.println("UC2 Result: " + hardcoded + " is not a palindrome.");
         }
 
-
         Scanner sc = new Scanner(System.in);
-
 
         // ==========================
         // UC3: Reverse String Method
@@ -105,7 +100,7 @@ public class PalindromeCheckerApp {
 
 
         // ==========================
-        // UC5: Stack-Based Method
+        // UC5: Stack Method
         // ==========================
         System.out.print("\nEnter word for UC5 check: ");
         String stackInput = sc.nextLine();
@@ -133,7 +128,6 @@ public class PalindromeCheckerApp {
         // UC7: Deque Method
         // ==========================
         System.out.println("\nUC7: Deque-Based Optimized Palindrome Checker");
-        System.out.println("------------------------------------------------");
 
         String dequeInput = "refer";
 
@@ -160,7 +154,6 @@ public class PalindromeCheckerApp {
         // UC8: LinkedList Method
         // ==========================
         System.out.println("\nUC8: Linked List Based Palindrome Checker");
-        System.out.println("------------------------------------------------");
 
         String llInput = "madam";
 
@@ -187,7 +180,6 @@ public class PalindromeCheckerApp {
         // UC9: Recursive Method
         // ==========================
         System.out.println("\nUC9: Recursive Palindrome Checker");
-        System.out.println("----------------------------------");
 
         System.out.print("Enter word for UC9 check: ");
         String recInput = sc.nextLine();
@@ -198,6 +190,38 @@ public class PalindromeCheckerApp {
             System.out.println("UC9 Result: " + recInput + " is a palindrome.");
         } else {
             System.out.println("UC9 Result: " + recInput + " is not a palindrome.");
+        }
+
+
+        // ==========================
+        // UC10: Ignore Case & Spaces
+        // ==========================
+        System.out.println("\nUC10: Case-Insensitive & Space-Ignored Palindrome");
+
+        System.out.print("Enter sentence for UC10 check: ");
+        String sentence = sc.nextLine();
+
+        // Normalize string
+        String normalized = sentence.replaceAll("\\s+", "").toLowerCase();
+
+        int start = 0;
+        int end = normalized.length() - 1;
+
+        boolean isSentencePalindrome = true;
+
+        while (start < end) {
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isSentencePalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
+
+        if (isSentencePalindrome) {
+            System.out.println("UC10 Result: \"" + sentence + "\" is a palindrome.");
+        } else {
+            System.out.println("UC10 Result: \"" + sentence + "\" is not a palindrome.");
         }
 
         sc.close();
